@@ -16,7 +16,7 @@ const LoginScreen = () => {
     });
 
     if (!fontsLoaded) {
-        return <AppLoading />;
+        return <></>;
     }
 
     const handleToggle = () => {
