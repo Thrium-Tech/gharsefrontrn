@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
         width: 50,
     },
     textContainer: {
-        // paddingHorizontal: 10,
         marginRight: 40,
     },
     heading: {
