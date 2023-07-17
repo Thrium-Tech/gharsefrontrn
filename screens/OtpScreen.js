@@ -6,10 +6,11 @@ import { useFonts } from 'expo-font';
 // import { useFonts } from 'expo-font';
 import { supabase } from "../initSupabase";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = (props) => {
+    console.log(props);
+    const { phone } = props.route.params;
     const [loading, setLoading] = useState(false);
-    const [phone, setPhone] = useState(false);
-    const [password, setPassword] = useState(false);
+    const [otp, setOtp] = useState(false);
 
     const [isLogin, setIsLogin] = useState(true);
     const toggleAnim = useRef(new Animated.Value(0)).current;
@@ -17,21 +18,6 @@ const LoginScreen = ({ navigation }) => {
     const [fontsLoaded] = useFonts({
         'Manrope-Regular': require('../assets/fonts/Manrope-Regular.ttf'),
         'Manrope-Medium': require('../assets/fonts/Manrope-Medium.ttf')
-    });
-
-
-    const handleToggle = () => {
-        setIsLogin(!isLogin);
-        Animated.timing(toggleAnim, {
-            toValue: isLogin ? 1 : 0,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const leftPosition = toggleAnim.interpolate({
-        inputRange: [0, 1],
-        outputRange: [10, 150],
     });
 
     const styles = StyleSheet.create({
@@ -161,7 +147,7 @@ const LoginScreen = ({ navigation }) => {
         buttonContainer: {
             width: '100%',
             alignItems: 'center',
-            marginTop: isLogin ? 52 : 10,
+            marginTop:  10,
         },
         button: {
             width: "100%",
@@ -181,43 +167,19 @@ const LoginScreen = ({ navigation }) => {
         },
     });
 
-    const login = async () => {
-        console.log("Login is called ....");
+    const verifyOtp = async () => {
+        console.log("OTP is called ....");
         setLoading(true);
-        console.log(phone, password);
-        const { user, error } = await supabase.auth.signInWithPassword({
+        console.log(phone);
+        const { user, error } = await supabase.auth.verifyOtp({
             phone: phone,
-            password: password,
-        });
-        // console.log(user, error);
-        // if (!error && !user) {
-        //     setLoading(false);
-        //     alert("Check your email for the login link!");
-        // }
-        if (error) {
-            setLoading(false);
-            if('Phone not confirmed'==error.message){
-                navigation.navigate('OTP',{phone, password})                
-            }else{
-                console.log(error);
-                alert(error.message);
-            }
-        }
-    }
-
-    const register = async () => {
-        setLoading(true);
-        console.log("Register is called ..");
-        console.log(phone, password);
-        const { user, error } = await supabase.auth.signUp({
-            phone: phone,
-            password: password,
+            token: otp,
+            type: 'sms'
         });
         console.log(user, error);
         if (!error && !user) {
             setLoading(false);
-            // alert("Check your email for the login link!");
-            navigation.navigate('OTP',{phone, password})                
+            alert("Check your email for the login link!");
         }
         if (error) {
             setLoading(false);
@@ -240,93 +202,33 @@ const LoginScreen = ({ navigation }) => {
                     <View style={styles.ellipse}>
                         <Image style={styles.logo} source={require('../assets/logo.png')} />
                     </View>
-                    <View style={styles.ovalContainer}>
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={handleToggle}
-                            style={styles.toggleButton}
-                        >
-                            <Animated.View
-                                style={[styles.toggleIndicator, { left: leftPosition }]}
-                            />
-                            <View style={styles.labelContainer}>
-                                <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
-                                <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             {/* </ImageBackground> */}
-            {isLogin && <View style={styles.outterPart}>
+            <View style={styles.outterPart}>
                 <View style={styles.headerPart}>
-                    <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Welcome Back!</Text>
-                    <Text style={styles.SubHead}>Your favorite home chefs are a click away!</Text>
+                    <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Verify OTP!</Text>
+                    <Text style={styles.SubHead}>You will recive 6 digit OTP in your phone!</Text>
                 </View>
                 <View style={styles.FormPart}>
-                    <Text style={styles.SubHead}>Phone Number</Text>
+                    <Text style={styles.SubHead}>OTP</Text>
                     <TextInput
-                        placeholder={"Enter your phone number"}
-                        onChangeText={(text) => setPhone(text)}
+                        placeholder={"Enter OTP"}
+                        onChangeText={(text) => setOtp(text)}
                         style={styles.textInput} />
-                    <Text style={styles.SubHead}>Password</Text>
-                    <TextInput
-                        placeholder={"Enter your password"}
-                        onChangeText={(text) => setPassword(text)}
-                        style={styles.textInput} />
-                </View>
-                <View style={styles.forgetPasswordView}>
-                    <TouchableOpacity>
-                        <Text style={styles.forgetPassword}>Forgot Password?</Text>
-                    </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={login} style={styles.button}>
+                    <TouchableOpacity onPress={verifyOtp} style={styles.button}>
                         <LinearGradient
                             colors={['#FF4E50', '#F9D423']}
                             start={[0, 0]}
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Login</Text>
+                            <Text style={styles.buttonText}>Verify & Login</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-            </View>}
-            {!isLogin && <View style={styles.outterPart}>
-                <View style={styles.headerPart}>
-                    <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Welcome!</Text>
-                    <Text style={styles.SubHead}>We are glad to see you in our platform!</Text>
-                </View>
-                <View style={styles.FormPart}>
-                    <Text style={styles.SubHead}>Phone Number</Text>
-                    <TextInput
-                        placeholder={"Enter your phone number"}
-                        onChangeText={(text) => setPhone(text)}
-                        style={styles.textInput} />
-                    <Text style={styles.SubHead}>Password</Text>
-                    <TextInput
-                        placeholder={"Enter your password"}
-                        onChangeText={(text) => setPassword(text)}
-                        style={styles.textInput} />
-                    <Text style={styles.SubHead}>Confirm Password</Text>
-                    <TextInput
-                        placeholder={"Enter your password"}
-                        onChangeText={(text) => setPassword(text)}
-                        style={styles.textInput} />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={register} style={styles.button}>
-                        <LinearGradient
-                            colors={['#FF4E50', '#F9D423']}
-                            start={[0, 0]}
-                            end={[1, 0]}
-                            style={styles.gradient}
-                        >
-                            <Text style={styles.buttonText}>Sign-up</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
-            </View>}
+            </View>
         </View>
     );
 };

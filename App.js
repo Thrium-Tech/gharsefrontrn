@@ -1,7 +1,10 @@
 import StackNavigator from './StackNavigator';
+import { AuthProvider } from "./AuthProvider";
 
 export default function App() {
   return (
-    <StackNavigator />
+    <AuthProvider>
+      <StackNavigator />
+    </AuthProvider>
   );
 }
