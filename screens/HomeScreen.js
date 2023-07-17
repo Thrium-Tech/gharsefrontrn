@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ScrollView, Button } from 'react-native';
-import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Meals from './subScreens/Meals';
@@ -9,24 +8,13 @@ import Breakfast from './subScreens/Breakfast';
 import Snacks from './subScreens/Snacks';
 import Lunch from './subScreens/Lunch';
 import BottomNavbar from '../components/BottomNavbar';
-import { AntDesign } from '@expo/vector-icons';
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
+import AppHeader from '../components/AppHeader';
 
 const HomeScreen = ({ navigation }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [index, setIndex] = useState(0);
 
-    const [fontsLoaded] = useFonts({
-        'Manrope-Regular': require('../assets/fonts/Manrope-Regular.ttf'),
-        'Manrope-Medium': require('../assets/fonts/Manrope-Medium.ttf'),
-        'WorkSans-Light': require('../assets/fonts/WorkSans-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return (<></>);
-    }
 
     const FirstRoute = () => (
         <Meals />
@@ -60,18 +48,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <AntDesign name="menuunfold" size={24} color="#002B5B" />
-                </TouchableOpacity>
-                <View style={styles.locationContainer} >
-                    <Octicons name="location" size={20} color="#002B5B" />
-                    <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
-                </View>
-                <TouchableOpacity >
-                    <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
-                </TouchableOpacity>
-            </View>
+            <AppHeader navigation={navigation} />
             <View style={styles.topPart}>
                 <Text style={styles.heading}>Good afternoon, Hemant</Text>
                 <View style={styles.searchContainer}>
@@ -112,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
                     )}
                 />
             </View>
-            <BottomNavbar />
+            <BottomNavbar screen={'Home'} />
         </View>
     )
 }
@@ -123,27 +100,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FAFAFA',
-    },
-    headerContainer: {
-        paddingTop: 40,
-        paddingBottom: 20,
-        paddingHorizontal: 30,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    locationContainer: {
-        flexDirection: 'row',
-        backgroundColor: '#FFF6F4',
-        width: '60%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    locationText: {
-        marginLeft: 5,
-        color: '#002B5B',
     },
     topPart: {
         paddingHorizontal: 20,

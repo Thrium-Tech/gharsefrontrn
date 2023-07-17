@@ -27,32 +27,32 @@ const BottomNavbar = ({ screen }) => {
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => { navigation.navigate('Home',) }}>
                     <AntDesign name="home" size={25} color="#FAFAFA" />
                     <Text style={styles.text}>Home</Text>
-                    <Text style={styles.activeButton}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{display: screen === 'Home' ? 'flex' : 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Favorites')} >
                     <AntDesign name="hearto" size={24} color="#FAFAFA" />
                     <Text style={styles.text}>Favorites</Text>
-                    <Text style={{display: 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => { navigation.navigate('Discover',) }}>
                     <SimpleLineIcons name="magnifier" size={24} color='#FAFAFA' />
                     <Text style={styles.text}>Discover</Text>
-                    <Text style={{display: 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Orders')}>
                     <Ionicons name="receipt-outline" size={24} color="#FAFAFA" />
                     <Text style={styles.text}>Orders</Text>
-                    <Text style={{display: 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Profile')}>
                     {/* <Ionicons name="Profile-outline" size={30} color={screen === 'Profile' ? '#FAFAFA' : '#999999'} /> */}
                     <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
                     <Text style={styles.text}>Profile</Text>
-                    <Text style={{display: 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
             </View>
 
@@ -64,6 +64,9 @@ const BottomNavbar = ({ screen }) => {
 const styles = StyleSheet.create({
     navContainer: {
         alignItems: 'center',
+        position: 'absolute',
+        bottom: 2,
+        marginRight: 7,
     },
     navBottom: {
         flexDirection: 'row',
@@ -73,8 +76,6 @@ const styles = StyleSheet.create({
         // borderTopEndRadius: 20,
         // borderTopStartRadius: 20,
         backgroundColor: '#002B5B',
-        position: 'absolute',
-        bottom: 2,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontFamily: 'Manrope-Regular',
         color: '#FAFAFA'
-    }
+    },
 });
 
 export default BottomNavbar;
