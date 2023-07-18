@@ -33,26 +33,26 @@ const BottomNavbar = ({ screen }) => {
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Favorites')} >
                     <AntDesign name="hearto" size={24} color="#FAFAFA" />
                     <Text style={styles.text}>Favorites</Text>
-                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{display: screen === 'Favorites' ? 'flex' : 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => { navigation.navigate('Discover',) }}>
                     <SimpleLineIcons name="magnifier" size={24} color='#FAFAFA' />
                     <Text style={styles.text}>Discover</Text>
-                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{display: screen === 'Discover' ? 'flex' : 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Orders')}>
                     <Ionicons name="receipt-outline" size={24} color="#FAFAFA" />
                     <Text style={styles.text}>Orders</Text>
-                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{display: screen === 'Orders' ? 'flex' : 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtonHandler} onPress={() => navigation.navigate('Profile')}>
                     {/* <Ionicons name="Profile-outline" size={30} color={screen === 'Profile' ? '#FAFAFA' : '#999999'} /> */}
                     <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
                     <Text style={styles.text}>Profile</Text>
-                    <Text style={{ display: 'none' }}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
+                    <Text style={{display: screen === 'Profile' ? 'flex' : 'none'}}><Octicons name="dot-fill" size={8} color="#fff" /></Text>
                 </TouchableOpacity>
             </View>
 
