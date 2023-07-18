@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,MaterialCommunityIcons,MaterialIcons } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 
 const DrawerComponent = (props) => {
@@ -25,52 +25,52 @@ const DrawerComponent = (props) => {
                     }}
 
                 />
-                <Divider style={{ marginTop: 10, marginBottom: 5 }} />
-                <DrawerItem
+                <Divider style={{ marginTop: 10, marginBottom: 5 , marginLeft:60, maxWidth:150}} />
+                <DrawerItem 
                     label="orders"
                     labelStyle={styles.drawerItem}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                            <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
+                            <MaterialCommunityIcons name="cart-arrow-down" size={26} color="#FAFAFA" />
                         </View>
                     )}
                     onPress={() => {
                     }}
 
                 />
-                <Divider style={{ marginTop: 10, marginBottom: 5 }} />
+                <Divider style={{ marginTop: 10, marginBottom: 5 , marginLeft:60, maxWidth:150}} />
                 <DrawerItem
                     label="Offer and Promo"
                     labelStyle={styles.drawerItem}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                            <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
+                           <MaterialIcons name="local-offer" size={26} color="#FAFAFA" />
                         </View>
                     )}
                     onPress={() => {
                     }}
 
                 />
-                <Divider style={{ marginTop: 10, marginBottom: 5 }} />
+                <Divider style={{ marginTop: 10, marginBottom: 5 , marginLeft:60, maxWidth:150}} />
                 <DrawerItem
                     label="Privacy Policy"
                     labelStyle={styles.drawerItem}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                            <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
+                          <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/menu_policyIcon.png')} />
                         </View>
                     )}
                     onPress={() => {
                     }}
 
                 />
-                  <Divider style={{ marginTop: 10, marginBottom: 5 }} />
+                  <Divider style={{ marginTop: 10, marginBottom: 5, marginLeft:60, maxWidth:150 }} />
                   <DrawerItem
                     label="Security"
                     labelStyle={styles.drawerItem}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                            <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
+                             <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/menu_securityIcon.png')} />
                         </View>
                     )}
                     onPress={() => {
