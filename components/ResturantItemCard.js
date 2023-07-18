@@ -10,7 +10,7 @@ const ResturantItemCard = ({itemName, brand}) => {
             <View style={styles.upperPart}>
                 <Image style={styles.item} source={require('../assets/kfcBurger.png')} />
                 <View style={styles.textContainer}>
-                    <Text style={styles.subHeading}>{itemName}</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.subHeading}>{itemName}</Text>
                     <View style={styles.subHeadContainer}>
                         <View style={{flexDirection: 'row'}}>
                             <Image style={styles.logo} source={require('../assets/kfc.png')} />
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Manrope-Regular',
         fontSize: 16,
         color: '#002B5B',
+        width: 180,
     },
     subHeadContainer: {
         flexDirection: 'row',

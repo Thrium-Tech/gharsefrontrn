@@ -6,6 +6,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import DrawerComponent from './components/DrawerComponent';
 import SearchHomeScreen from './screens/SearchHomeScreen';
+import DiscoverScreen from './screens/DiscoverScreen';
 // Import other screen components as needed
 
 const Drawer = createDrawerNavigator();
@@ -15,8 +16,9 @@ const DrawerNavigator = () => {
         <Drawer.Navigator
             drawerContent={(props) => <DrawerComponent {...props} />}
         >
-            <Drawer.Screen name="Search home" component={SearchHomeScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Drawer.Screen name="Discover" component={DiscoverScreen} options={{ headerShown: false }} />
+            <Drawer.Screen name="Search home" component={SearchHomeScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         </Drawer.Navigator>
     );
