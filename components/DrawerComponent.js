@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Ionicons,MaterialCommunityIcons,MaterialIcons } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
+import { supabase } from "../initSupabase";
 
 const DrawerComponent = (props) => {
     return (
@@ -61,6 +62,7 @@ const DrawerComponent = (props) => {
                         </View>
                     )}
                     onPress={() => {
+
                     }}
 
                 />
@@ -74,6 +76,20 @@ const DrawerComponent = (props) => {
                         </View>
                     )}
                     onPress={() => {
+                    }}
+
+                />
+                <Divider style={{ marginTop: 10, marginBottom: 5, marginLeft:60, maxWidth:150 }} />
+                  <DrawerItem
+                    label="Logout"
+                    labelStyle={styles.drawerItem}
+                    icon={() => (
+                        <View style={styles.iconContainer}>
+                             <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/menu_securityIcon.png')} />
+                        </View>
+                    )}
+                    onPress={async () => {
+                        await supabase.auth.signOut();
                     }}
 
                 />

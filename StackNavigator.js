@@ -7,6 +7,7 @@ import { AuthContext } from './AuthProvider';
 import { View, ActivityIndicator } from "react-native";
 import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import DrawerNavigator from './DrawerNavigator';
 const Stack = createNativeStackNavigator();
 const Auth = createNativeStackNavigator();
 
@@ -31,14 +32,14 @@ const StackNavigator = () => {
 
     if(user==false){
         return(
-            <NavigationContainer>
                 <Auth.Navigator>
                     <Auth.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
                     <Auth.Screen name="OTP" component={OtpScreen} options={{ headerShown: false }} />
                     <Auth.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
                 </Auth.Navigator>
-            </NavigationContainer>)
+            )
     }else{
+        return (<DrawerNavigator />)
         return (
             <NavigationContainer>
                 <Stack.Navigator>
