@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from './StackNavigator';
+import { AuthProvider } from "./AuthProvider";
 import DrawerNavigator from './DrawerNavigator';
 import { useFonts } from 'expo-font';
 
@@ -17,13 +18,14 @@ export default function App() {
 
 
   return (
-    <>
+    <AuthProvider>
       <NavigationContainer>
         <DrawerNavigator />
       </NavigationContainer>
       {/* <NavigationContainer>
         <StackNavigator />
       </NavigationContainer> */}
-    </>
+    {/* <StackNavigator /> */}
+    </AuthProvider>
   );
 }

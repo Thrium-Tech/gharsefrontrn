@@ -1,11 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator, } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
 // import { useFonts } from 'expo-font';
+import { supabase } from "../initSupabase";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
+    const [loading, setLoading] = useState(false);
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [confimPassword, setConfimPassword] = useState("");
 
     const [isLogin, setIsLogin] = useState(true);
     const toggleAnim = useRef(new Animated.Value(0)).current;
@@ -15,12 +20,9 @@ const LoginScreen = () => {
         'Manrope-Medium': require('../assets/fonts/Manrope-Medium.ttf')
     });
 
-    if (!fontsLoaded) {
-        return <></>;
-    }
-
     const handleToggle = () => {
         setIsLogin(!isLogin);
+        setLoading(false);
         Animated.timing(toggleAnim, {
             toValue: isLogin ? 1 : 0,
             duration: 300,
@@ -180,6 +182,70 @@ const LoginScreen = () => {
         },
     });
 
+    const login = async () => {
+        console.log("Login is called ....");
+        setLoading(true);
+        console.log(phone, password);
+        if(phone.trim()=="" || password.trim()==""){
+            setLoading(false);
+            alert("Phone and password is required!")
+            return;
+        }
+        const { user, error } = await supabase.auth.signInWithPassword({
+            phone: phone.trim(),
+            password: password.trim(),
+        });
+        // console.log(user, error);
+        // if (!error && !user) {
+        //     setLoading(false);
+        //     alert("Check your email for the login link!");
+        // }
+        if (error) {
+            setLoading(false);
+            if('Phone not confirmed'==error.message){
+                navigation.navigate('OTP',{phone, password})                
+            }else{
+                console.log(error);
+                alert(error.message);
+            }
+        }
+    }
+
+    const register = async () => {
+        setLoading(true);
+        console.log("Register is called ..");
+        console.log(phone, password);
+        if(phone.trim()=="" || password.trim()=="" || confimPassword.trim()==""){
+            setLoading(false);
+            alert("All field are required!")
+            return;
+        }
+        if(password.trim()!=confimPassword.trim()){
+            setLoading(false);
+            alert("Confim password is not match!")
+            return;
+        }
+        const { data, error } = await supabase.auth.signUp({
+            phone: phone.trim(),
+            password: password.trim(),
+        });
+        const { session, user } = data;
+        console.log(session, user, error);
+        if (!error && !session) {
+            setLoading(false);
+            // alert("Check your email for the login link!");
+            navigation.navigate('OTP',{phone, password})                
+        }
+        if (error) {
+            setLoading(false);
+            alert(error.message);
+        }
+    }
+
+    if (!fontsLoaded) {
+        return <></>;
+    }
+
     return (
         <View style={[styles.container]}>
             {/* <ImageBackground
@@ -217,26 +283,28 @@ const LoginScreen = () => {
                     <Text style={styles.SubHead}>Phone Number</Text>
                     <TextInput
                         placeholder={"Enter your phone number"}
+                        onChangeText={(text) => setPhone(text)}
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Password</Text>
                     <TextInput
                         placeholder={"Enter your password"}
+                        onChangeText={(text) => setPassword(text)}
                         style={styles.textInput} />
                 </View>
                 <View style={styles.forgetPasswordView}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('ForgotPassword')}>
                         <Text style={styles.forgetPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity onPress={login} style={styles.button}>
                         <LinearGradient
                             colors={['#FF4E50', '#F9D423']}
                             start={[0, 0]}
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Login ></Text>
+                           {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Login</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -250,25 +318,28 @@ const LoginScreen = () => {
                     <Text style={styles.SubHead}>Phone Number</Text>
                     <TextInput
                         placeholder={"Enter your phone number"}
+                        onChangeText={(text) => setPhone(text)}
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Password</Text>
                     <TextInput
                         placeholder={"Enter your password"}
+                        onChangeText={(text) => setPassword(text)}
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Confirm Password</Text>
                     <TextInput
                         placeholder={"Enter your password"}
+                        onChangeText={(text) => setConfimPassword(text)}
                         style={styles.textInput} />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity onPress={register} style={styles.button}>
                         <LinearGradient
                             colors={['#FF4E50', '#F9D423']}
                             start={[0, 0]}
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Sign-up ></Text>
+                            {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Sign-up</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>

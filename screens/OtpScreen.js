@@ -1,14 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
 // import { useFonts } from 'expo-font';
 import { supabase } from "../initSupabase";
 
-const ForgotPasswordScreen = (props) => {
+const LoginScreen = (props) => {
+    console.log(props);
+    const { phone } = props.route.params;
     const [loading, setLoading] = useState(false);
-    const [phone, setPhone] = useState(false);
+    const [otp, setOtp] = useState(false);
+
+    const [isLogin, setIsLogin] = useState(true);
+    const toggleAnim = useRef(new Animated.Value(0)).current;
 
     const [fontsLoaded] = useFonts({
         'Manrope-Regular': require('../assets/fonts/Manrope-Regular.ttf'),
@@ -120,7 +125,7 @@ const ForgotPasswordScreen = (props) => {
             fontFamily: 'Manrope-Regular',
         },
         FormPart: {
-            marginTop: 15,
+            marginTop: isLogin ? 30 : 15,
         },
         textInput: {
             height: 50,
@@ -162,15 +167,20 @@ const ForgotPasswordScreen = (props) => {
         },
     });
 
-    const sendOtp = async () => {
+    const verifyOtp = async () => {
         console.log("OTP is called ....");
         setLoading(true);
         console.log(phone);
-        const { data, error } = await supabase.auth.resend({
+        const { user, error } = await supabase.auth.verifyOtp({
             phone: phone,
             token: otp,
             type: 'sms'
         });
+        // console.log(user, error);
+        // if (!error && !user) {
+        //     setLoading(false);
+        //     alert("Check your email for the login link!");
+        // }
         if (error) {
             setLoading(false);
             alert(error.message);
@@ -196,25 +206,25 @@ const ForgotPasswordScreen = (props) => {
             {/* </ImageBackground> */}
             <View style={styles.outterPart}>
                 <View style={styles.headerPart}>
-                    <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Forgot Password</Text>
+                    <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Verify OTP!</Text>
                     <Text style={styles.SubHead}>You will recive 6 digit OTP in your phone!</Text>
                 </View>
                 <View style={styles.FormPart}>
-                    <Text style={styles.SubHead}>Phone Number</Text>
+                    <Text style={styles.SubHead}>OTP</Text>
                     <TextInput
-                        placeholder={"Enter your phone number"}
-                        onChangeText={(text) => setPhone(text)}
+                        placeholder={"Enter OTP"}
+                        onChangeText={(text) => setOtp(text)}
                         style={styles.textInput} />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={sendOtp} style={styles.button}>
+                    <TouchableOpacity onPress={verifyOtp} style={styles.button}>
                         <LinearGradient
                             colors={['#FF4E50', '#F9D423']}
                             start={[0, 0]}
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Send OTP</Text>
+                           {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Verify & Login</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -223,5 +233,5 @@ const ForgotPasswordScreen = (props) => {
     );
 };
 
-export default ForgotPasswordScreen;
+export default LoginScreen;
 
