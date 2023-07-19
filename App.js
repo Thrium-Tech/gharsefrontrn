@@ -25,7 +25,7 @@ export default function App() {
       {/* <NavigationContainer>
         <StackNavigator />
       </NavigationContainer> */}
-    <StackNavigator />
+    {/* <StackNavigator /> */}
     </AuthProvider>
   );
 }

@@ -6,7 +6,7 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import { AuthContext } from './AuthProvider';
 import { View, ActivityIndicator } from "react-native";
 import HomeScreen from './screens/HomeScreen';
-
+import { NavigationContainer } from '@react-navigation/native';
 const Stack = createNativeStackNavigator();
 const Auth = createNativeStackNavigator();
 
