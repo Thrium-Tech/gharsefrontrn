@@ -5,16 +5,20 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 
 
-const AppHeader = ({ navigation }) => {
+const AppHeader = ({ navigation, screen }) => {
     return (
         <View style={styles.headerContainer}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <AntDesign name="menuunfold" size={24} color="#002B5B" />
             </TouchableOpacity>
-            <View style={styles.locationContainer} >
+            {screen !== 'Favorites' && <View style={styles.locationContainer} >
                 <Octicons name="location" size={20} color="#002B5B" />
                 <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
-            </View>
+            </View>}
+            {screen == 'Favorites' && <View style={styles.locationContainer} >
+                <AntDesign name="hearto" size={20} color="#002B5B" />
+                <Text style={styles.locationText}>Your favorites</Text>
+            </View>}
             <TouchableOpacity >
                 <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
             </TouchableOpacity>
