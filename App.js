@@ -20,7 +20,7 @@ export default function App() {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <DrawerNavigator />
+        <StackNavigator />
       </NavigationContainer>
       {/* <NavigationContainer>
         <StackNavigator />
