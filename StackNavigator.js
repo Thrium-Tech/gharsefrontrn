@@ -1,12 +1,11 @@
 import React, {useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 import OtpScreen from './screens/OtpScreen';
-import RestaurantSearch from './screens/RestaurantSearch';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import { AuthContext } from './AuthProvider';
 import { View, ActivityIndicator } from "react-native";
+import HomeScreen from './screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 const Auth = createNativeStackNavigator();
@@ -43,7 +42,7 @@ const StackNavigator = () => {
         return (
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen name="Home" component={RestaurantSearch} options={{ headerShown: false }} />
+                    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                 </Stack.Navigator>
             </NavigationContainer>
         );
