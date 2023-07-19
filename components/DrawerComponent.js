@@ -85,7 +85,7 @@ const DrawerComponent = (props) => {
                     labelStyle={styles.drawerItem}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                             <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/menu_securityIcon.png')} />
+                         <MaterialIcons name="logout" size={26} color="#FAFAFA" />
                         </View>
                     )}
                     onPress={async () => {
