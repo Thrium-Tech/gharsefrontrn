@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator, } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
@@ -8,8 +8,9 @@ import { supabase } from "../initSupabase";
 
 const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
-    const [phone, setPhone] = useState(false);
-    const [password, setPassword] = useState(false);
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [confimPassword, setConfimPassword] = useState("");
 
     const [isLogin, setIsLogin] = useState(true);
     const toggleAnim = useRef(new Animated.Value(0)).current;
@@ -19,9 +20,9 @@ const LoginScreen = ({ navigation }) => {
         'Manrope-Medium': require('../assets/fonts/Manrope-Medium.ttf')
     });
 
-
     const handleToggle = () => {
         setIsLogin(!isLogin);
+        setLoading(false);
         Animated.timing(toggleAnim, {
             toValue: isLogin ? 1 : 0,
             duration: 300,
@@ -185,9 +186,14 @@ const LoginScreen = ({ navigation }) => {
         console.log("Login is called ....");
         setLoading(true);
         console.log(phone, password);
+        if(phone.trim()=="" || password.trim()==""){
+            setLoading(false);
+            alert("Phone and password is required!")
+            return;
+        }
         const { user, error } = await supabase.auth.signInWithPassword({
-            phone: phone,
-            password: password,
+            phone: phone.trim(),
+            password: password.trim(),
         });
         // console.log(user, error);
         // if (!error && !user) {
@@ -209,12 +215,23 @@ const LoginScreen = ({ navigation }) => {
         setLoading(true);
         console.log("Register is called ..");
         console.log(phone, password);
-        const { user, error } = await supabase.auth.signUp({
-            phone: phone,
-            password: password,
+        if(phone.trim()=="" || password.trim()=="" || confimPassword.trim()==""){
+            setLoading(false);
+            alert("All field are required!")
+            return;
+        }
+        if(password.trim()!=confimPassword.trim()){
+            setLoading(false);
+            alert("Confim password is not match!")
+            return;
+        }
+        const { data, error } = await supabase.auth.signUp({
+            phone: phone.trim(),
+            password: password.trim(),
         });
-        console.log(user, error);
-        if (!error && !user) {
+        const { session, user } = data;
+        console.log(session, user, error);
+        if (!error && !session) {
             setLoading(false);
             // alert("Check your email for the login link!");
             navigation.navigate('OTP',{phone, password})                
@@ -275,7 +292,7 @@ const LoginScreen = ({ navigation }) => {
                         style={styles.textInput} />
                 </View>
                 <View style={styles.forgetPasswordView}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('ForgotPassword')}>
                         <Text style={styles.forgetPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
@@ -287,7 +304,7 @@ const LoginScreen = ({ navigation }) => {
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Login</Text>
+                           {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Login</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -311,7 +328,7 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.SubHead}>Confirm Password</Text>
                     <TextInput
                         placeholder={"Enter your password"}
-                        onChangeText={(text) => setPassword(text)}
+                        onChangeText={(text) => setConfimPassword(text)}
                         style={styles.textInput} />
                 </View>
                 <View style={styles.buttonContainer}>
@@ -322,7 +339,7 @@ const LoginScreen = ({ navigation }) => {
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Sign-up</Text>
+                            {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Sign-up</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>

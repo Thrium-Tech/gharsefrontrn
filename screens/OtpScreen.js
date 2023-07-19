@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
@@ -176,11 +176,11 @@ const LoginScreen = (props) => {
             token: otp,
             type: 'sms'
         });
-        console.log(user, error);
-        if (!error && !user) {
-            setLoading(false);
-            alert("Check your email for the login link!");
-        }
+        // console.log(user, error);
+        // if (!error && !user) {
+        //     setLoading(false);
+        //     alert("Check your email for the login link!");
+        // }
         if (error) {
             setLoading(false);
             alert(error.message);
@@ -224,7 +224,7 @@ const LoginScreen = (props) => {
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                            <Text style={styles.buttonText}>Verify & Login</Text>
+                           {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Verify & Login</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
