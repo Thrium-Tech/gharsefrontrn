@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator, } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
 // import { useFonts } from 'expo-font';
 import { supabase } from "../initSupabase";
+import { OtplessEventModule } from 'otpless-react-native';
 
 const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
@@ -34,6 +35,23 @@ const LoginScreen = ({ navigation }) => {
         inputRange: [0, 1],
         outputRange: [10, 150],
     });
+
+
+    const eventModule = new OtplessEventModule((data) => {
+        let message = '';
+        console.log("===================================================");
+        console.log(data);
+        if (data.data === null || data.data === undefined) {
+         message = data.errorMessage;
+        } else {
+         message =`token: ${data.data.token}`;
+         // todo here
+        }
+    });
+
+    useEffect(()=>{
+        eventModule.start();
+    },[])
 
     const styles = StyleSheet.create({
         container: {
