@@ -9,7 +9,8 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     'Manrope-Regular': require('./assets/fonts/Manrope-Regular.ttf'),
     'Manrope-Medium': require('./assets/fonts/Manrope-Medium.ttf'),
-    'WorkSans-Light': require('./assets/fonts/WorkSans-Light.ttf')
+    'WorkSans-Light': require('./assets/fonts/WorkSans-Light.ttf'),
+    'WorkSans-Regular': require('./assets/fonts/WorkSans-Regular.ttf')
   });
 
   if (!fontsLoaded) {
