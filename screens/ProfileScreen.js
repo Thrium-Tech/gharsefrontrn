@@ -4,8 +4,11 @@ import BottomNavbar from '../components/BottomNavbar'
 import AppHeader from '../components/AppHeader';
 import { Divider } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 
 const ProfileScreen = ({navigation}) => {
+
   return (
     <View style={styles.container}>
       <AppHeader navigation={navigation} screen={'Profile'} />
@@ -42,7 +45,7 @@ const ProfileScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.cardButton}>
-            <TouchableOpacity style={styles.buttonsContainer}>
+            <TouchableOpacity onPress={() => {navigation.navigate('Payment Methods')}} style={styles.buttonsContainer}>
               <Text style={styles.buttonText}>Payment Methods</Text>
               <MaterialIcons name="keyboard-arrow-right" size={30} color="black" />
             </TouchableOpacity>
