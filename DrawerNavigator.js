@@ -14,6 +14,7 @@ import EditAddonScreen from './screens/EditAddonScreen';
 import CartScreen from './screens/CartScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import EditCardDetailsScreen from './screens/EditCardDetailsScreen';
 // Import other screen components as needed
 
 const Drawer = createDrawerNavigator();
@@ -23,6 +24,7 @@ const DrawerNavigator = () => {
         <Drawer.Navigator
             drawerContent={(props) => <DrawerComponent {...props} />}
         >
+            <Drawer.Screen name="Edit Card Details Screen" component={EditCardDetailsScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Payment Methods" component={PaymentMethodScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Edit Add-on" component={EditAddonScreen} options={{ headerShown: false }} />
