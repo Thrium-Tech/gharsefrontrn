@@ -1,17 +1,19 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import AppHeader from '../components/AppHeader';
 import { Divider } from 'react-native-elements';
+import { color } from 'react-native-reanimated';
 
-const EditAddressScreen = () => {
-  // Replace this with the path to your image or require the image using require()
-  //   const mapImage = require('./path/to/your/map_image.png');
+const EditAddressScreen = ({navigation}) => {
+
+  const [selectedOption, setSelectedOption] = useState('')
 
   return (
     <View style={styles.container}>
       {/* Edit Card Details Heading */}
-      <AppHeader />
+      <AppHeader navigation={navigation} />
 
       <View style={styles.contentContainer}>
 
@@ -21,7 +23,8 @@ const EditAddressScreen = () => {
         <View style={styles.imageContainer}>
           <Image source={require('../assets/mapLocation.png')} style={styles.image} />
           <View style={styles.buttomImage}>
-            <Image source={require('../assets/visa.png')} style={styles.visaImage} />
+            <MaterialIcons name="my-location" size={20} color="#002B5B" />
+            <Text style={styles.pinLocationText}>Pin Location</Text>
           </View>
         </View>
 
@@ -42,7 +45,22 @@ const EditAddressScreen = () => {
           </View>
 
           {/* Divider */}
-          <Divider style={{marginVertical: 5,}} />
+          <Divider style={{ marginVertical: 5, }} />
+
+          <View style={{}}>
+            <Text style={{fontSize: 18, fontFamily: 'Manrope-Medium', paddingBottom: 10,}}>Delivery details</Text>
+            <ScrollView contentContainerStyle={{}} style={{marginBottom: 10}} horizontal>
+              <TouchableOpacity onPress={() => setSelectedOption('Leave at Doorstep')} style={[styles.deliveryBackground, selectedOption === 'Leave at Doorstep' && styles.activeOption]} >
+                <Text style={[styles.deliveryText, selectedOption === 'Leave at Doorstep' && styles.activeOptionText]}>Leave at Doorstep</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedOption('In-Person Handoff')} style={[styles.deliveryBackground, selectedOption === 'In-Person Handoff' && styles.activeOption]} >
+                <Text style={[styles.deliveryText, selectedOption === 'In-Person Handoff' && styles.activeOptionText]}>In-Person Handoff</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedOption('Meet Outside House')} style={[styles.deliveryBackground, selectedOption === 'Meet Outside House' && styles.activeOption]} >
+                <Text style={[styles.deliveryText, selectedOption === 'Meet Outside House' && styles.activeOptionText]}>Meet Outside House</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
 
           {/* Add Instructions */}
           <View style={styles.labelRow}>
@@ -95,16 +113,42 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '20%',
     borderRadius: 12,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
     borderColor: '#002B5B',
     borderWidth: 1,
   },
+  pinLocationText: {
+    fontFamily: 'Manrope-Medium',
+    marginStart: 5,
+    fontSize: 13,
+    color: '#002B5B',
+  },
   cardDetailsContainer: {
     width: '100%',
     paddingVertical: 10,
     // marginBottom: 20,
+  },
+  deliveryBackground: {
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#EFF2F5',
+    marginRight: 10,
+    paddingHorizontal: 20,
+  },
+  activeOption: {
+    backgroundColor: '#46505D',
+  },
+  deliveryText: {
+    color: '#46505D',
+    fontFamily: 'Manrope-Medium',
+    fontSize: 12,
+  },
+  activeOptionText: {
+    color: '#FAFAFA',
   },
   labelRow: {
     flexDirection: 'row',
@@ -138,7 +182,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F86F03', 
+    backgroundColor: '#F86F03',
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,

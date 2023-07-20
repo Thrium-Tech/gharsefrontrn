@@ -8,7 +8,7 @@ import { Octicons } from '@expo/vector-icons';
 const AppHeader = ({ navigation, screen }) => {
     return (
         <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <TouchableOpacity style={{padding: 10, paddingLeft: 0}} onPress={() => navigation.openDrawer()}>
                 <AntDesign name="menuunfold" size={24} color="#002B5B" />
             </TouchableOpacity>
             {screen === undefined && <View style={styles.locationContainer} >
@@ -22,7 +22,7 @@ const AppHeader = ({ navigation, screen }) => {
             {screen == 'Profile' && <View style={styles.locationContainer} >
                 <Text style={styles.locationText}>Profile</Text>
             </View>}
-            <TouchableOpacity >
+            <TouchableOpacity style={{padding: 10, paddingLeft: 0}}  >
                 <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
             </TouchableOpacity>
         </View>
