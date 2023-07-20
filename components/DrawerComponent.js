@@ -4,8 +4,13 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerI
 import { Ionicons, MaterialCommunityIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import { supabase } from "../initSupabase";
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 
 const DrawerComponent = (props) => {
+
+    const navigation = useNavigation()
+
     return (
         <View style={styles.container}>
             {/* <StatusBar  /> */}
@@ -23,7 +28,7 @@ const DrawerComponent = (props) => {
                                     <Ionicons name="ios-person-circle-outline" size={26} color="#FAFAFA" />
                                 </View>
                             )}
-                            onPress={() => {
+                            onPress={() => { navigation.navigate('Profile')
                             }}
 
                         />

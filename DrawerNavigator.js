@@ -12,6 +12,7 @@ import ResturantMenuScreen from './screens/ResturantMenuScreen';
 import RestaurantSearch from './screens/RestaurantSearch';
 import EditAddonScreen from './screens/EditAddonScreen';
 import CartScreen from './screens/CartScreen';
+import ProfileScreen from './screens/ProfileScreen';
 // Import other screen components as needed
 
 const Drawer = createDrawerNavigator();
@@ -21,6 +22,7 @@ const DrawerNavigator = () => {
         <Drawer.Navigator
             drawerContent={(props) => <DrawerComponent {...props} />}
         >
+            <Drawer.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Edit Add-on" component={EditAddonScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
