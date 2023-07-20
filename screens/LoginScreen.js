@@ -8,8 +8,8 @@ import { supabase } from "../initSupabase";
 
 const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("919381969169");
+    const [password, setPassword] = useState("test@123");
     const [confimPassword, setConfimPassword] = useState("");
 
     const [isLogin, setIsLogin] = useState(true);
@@ -284,10 +284,12 @@ const LoginScreen = ({ navigation }) => {
                     <TextInput
                         placeholder={"Enter your phone number"}
                         onChangeText={(text) => setPhone(text)}
+                        value={phone}
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Password</Text>
                     <TextInput
                         textContentType='password'
+                        value={password}
                         placeholder={"Enter your password"}
                         onChangeText={(text) => setPassword(text)}
                         style={styles.textInput} />

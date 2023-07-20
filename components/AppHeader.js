@@ -11,13 +11,16 @@ const AppHeader = ({ navigation, screen }) => {
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <AntDesign name="menuunfold" size={24} color="#002B5B" />
             </TouchableOpacity>
-            {screen !== 'Favorites' && <View style={styles.locationContainer} >
+            {screen === undefined && <View style={styles.locationContainer} >
                 <Octicons name="location" size={20} color="#002B5B" />
                 <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
             </View>}
             {screen == 'Favorites' && <View style={styles.locationContainer} >
                 <AntDesign name="hearto" size={20} color="#002B5B" />
                 <Text style={styles.locationText}>Your favorites</Text>
+            </View>}
+            {screen == 'Profile' && <View style={styles.locationContainer} >
+                <Text style={styles.locationText}>Profile</Text>
             </View>}
             <TouchableOpacity >
                 <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
@@ -50,5 +53,6 @@ const styles = StyleSheet.create({
     locationText: {
         marginLeft: 5,
         color: '#002B5B',
+        fontFamily: 'Manrope-Regular',
     },
 })
