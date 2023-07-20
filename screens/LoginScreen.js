@@ -186,7 +186,7 @@ const LoginScreen = ({ navigation }) => {
         console.log("Login is called ....");
         setLoading(true);
         console.log(phone, password);
-        if(phone.trim()=="" || password.trim()==""){
+        if (phone.trim() == "" || password.trim() == "") {
             setLoading(false);
             alert("Phone and password is required!")
             return;
@@ -202,9 +202,9 @@ const LoginScreen = ({ navigation }) => {
         // }
         if (error) {
             setLoading(false);
-            if('Phone not confirmed'==error.message){
-                navigation.navigate('OTP',{phone, password})                
-            }else{
+            if ('Phone not confirmed' == error.message) {
+                navigation.navigate('OTP', { phone, password })
+            } else {
                 console.log(error);
                 alert(error.message);
             }
@@ -215,12 +215,12 @@ const LoginScreen = ({ navigation }) => {
         setLoading(true);
         console.log("Register is called ..");
         console.log(phone, password);
-        if(phone.trim()=="" || password.trim()=="" || confimPassword.trim()==""){
+        if (phone.trim() == "" || password.trim() == "" || confimPassword.trim() == "") {
             setLoading(false);
             alert("All field are required!")
             return;
         }
-        if(password.trim()!=confimPassword.trim()){
+        if (password.trim() != confimPassword.trim()) {
             setLoading(false);
             alert("Confim password is not match!")
             return;
@@ -234,7 +234,7 @@ const LoginScreen = ({ navigation }) => {
         if (!error && !session) {
             setLoading(false);
             // alert("Check your email for the login link!");
-            navigation.navigate('OTP',{phone, password})                
+            navigation.navigate('OTP', { phone, password })
         }
         if (error) {
             setLoading(false);
@@ -253,26 +253,26 @@ const LoginScreen = ({ navigation }) => {
                 resizeMode="repeat"
                 style={styles.rectangleBackground}
             > */}
-                <View style={styles.rectangle}>
-                    <View style={styles.ellipse}>
-                        <Image style={styles.logo} source={require('../assets/logo.png')} />
-                    </View>
-                    <View style={styles.ovalContainer}>
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={handleToggle}
-                            style={styles.toggleButton}
-                        >
-                            <Animated.View
-                                style={[styles.toggleIndicator, { left: leftPosition }]}
-                            />
-                            <View style={styles.labelContainer}>
-                                <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
-                                <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.rectangle}>
+                <View style={styles.ellipse}>
+                    <Image style={styles.logo} source={require('../assets/logo.png')} />
                 </View>
+                <View style={styles.ovalContainer}>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={handleToggle}
+                        style={styles.toggleButton}
+                    >
+                        <Animated.View
+                            style={[styles.toggleIndicator, { left: leftPosition }]}
+                        />
+                        <View style={styles.labelContainer}>
+                            <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
+                            <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
             {/* </ImageBackground> */}
             {isLogin && <View style={styles.outterPart}>
                 <View style={styles.headerPart}>
@@ -287,12 +287,13 @@ const LoginScreen = ({ navigation }) => {
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Password</Text>
                     <TextInput
+                        textContentType='password'
                         placeholder={"Enter your password"}
                         onChangeText={(text) => setPassword(text)}
                         style={styles.textInput} />
                 </View>
                 <View style={styles.forgetPasswordView}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('ForgotPassword')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={styles.forgetPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
@@ -304,7 +305,7 @@ const LoginScreen = ({ navigation }) => {
                             end={[1, 0]}
                             style={styles.gradient}
                         >
-                           {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Login</Text>}
+                            {loading ? <ActivityIndicator size={'small'} color={"#fff"} /> : <Text style={styles.buttonText}>Login</Text>}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
