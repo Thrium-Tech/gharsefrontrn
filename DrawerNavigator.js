@@ -17,6 +17,7 @@ import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import LiveTrackingScreen from './screens/LiveTrackingScreen';
 import EditCardDetailsScreen from './screens/EditCardDetailsScreen';
 import EditAddressScreen from './screens/EditAddressScreen';
+import MealScreen from './screens/MealScreen';
 // Import other screen components as needed
 
 const Drawer = createDrawerNavigator();
@@ -27,6 +28,7 @@ const DrawerNavigator = () => {
             drawerContent={(props) => <DrawerComponent {...props} />}
         >
             <Drawer.Screen name="Edit Address" component={EditAddressScreen} options={{ headerShown: false }} />
+            <Drawer.Screen name="Meal" component={MealScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Live Tracking" component={LiveTrackingScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Edit Card Details Screen" component={EditCardDetailsScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Payment Methods" component={PaymentMethodScreen} options={{ headerShown: false }} />
