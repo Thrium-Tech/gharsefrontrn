@@ -496,6 +496,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     bottomNavBarContainer: {
+        backgroundColor: '#fff',
         position: 'absolute',
         bottom: 0,
         // height: 60,
@@ -504,6 +505,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: 15,
+        paddingTop: 5,
     },
     favouritesContainer: {
         position: 'absolute',
