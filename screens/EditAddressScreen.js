@@ -4,10 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AppHeader from '../components/AppHeader';
 import { Divider } from 'react-native-elements';
-import { color } from 'react-native-reanimated';
+import * as Location from 'expo-location';
+import MapView, { Marker } from 'react-native-maps';
 
-const EditAddressScreen = ({navigation}) => {
+const EditAddressScreen = ({ navigation }) => {
 
+  const [location, setLocation] = useState({latitude: 40.798213, longitude: -84.0729929});
   const [selectedOption, setSelectedOption] = useState('')
 
   return (
@@ -21,11 +23,29 @@ const EditAddressScreen = ({navigation}) => {
 
         {/* Image View */}
         <View style={styles.imageContainer}>
-          <Image source={require('../assets/mapLocation.png')} style={styles.image} />
-          <View style={styles.buttomImage}>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+              title="You are here"
+              description="Your current location"
+            >
+              <View style={styles.customMarker}>
+                <Image source={require('../assets/pinHome.png')} style={styles.markerImage} />
+              </View>
+            </Marker>
+          </MapView>
+          <TouchableOpacity style={styles.buttomImage}>
             <MaterialIcons name="my-location" size={20} color="#002B5B" />
             <Text style={styles.pinLocationText}>Pin Location</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Address Details */}
@@ -48,8 +68,8 @@ const EditAddressScreen = ({navigation}) => {
           <Divider style={{ marginVertical: 5, }} />
 
           <View style={{}}>
-            <Text style={{fontSize: 18, fontFamily: 'Manrope-Medium', paddingBottom: 10,}}>Delivery details</Text>
-            <ScrollView contentContainerStyle={{}} style={{marginBottom: 10}} horizontal>
+            <Text style={{ fontSize: 18, fontFamily: 'Manrope-Medium', paddingBottom: 10, }}>Delivery details</Text>
+            <ScrollView contentContainerStyle={{}} style={{ marginBottom: 10 }} horizontal>
               <TouchableOpacity onPress={() => setSelectedOption('Leave at Doorstep')} style={[styles.deliveryBackground, selectedOption === 'Leave at Doorstep' && styles.activeOption]} >
                 <Text style={[styles.deliveryText, selectedOption === 'Leave at Doorstep' && styles.activeOptionText]}>Leave at Doorstep</Text>
               </TouchableOpacity>
@@ -101,6 +121,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     position: 'relative',
     alignItems: 'center',
+  },
+  map: {
+    overflow: 'hidden',
+    position: 'relative',
+    width: '100%',
+    height: '100%',
   },
   image: {
     width: '100%',
