@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { Ionicons } from '@expo/vector-icons';
 import AppHeader from '../components/AppHeader';
 import { Divider } from 'react-native-elements';
+import UploadImage from '../components/UploadImage';
 
 const EditDetailsScreen = () => {
 
@@ -53,12 +54,8 @@ const EditDetailsScreen = () => {
 
         <Text style={styles.heading}>Edit Personal Details</Text>
 
-        {/* Image View */}
-        <View style={styles.imageContainer}>
-          <Image source={require('../assets/CreditCard.jpg')} style={styles.image} />
-          <View style={styles.buttomImage}>
-            <Image source={require('../assets/visa.png')} style={styles.visaImage} />
-          </View>
+        <View style={{alignItems: 'center'}}>
+          <UploadImage />
         </View>
 
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }} >
