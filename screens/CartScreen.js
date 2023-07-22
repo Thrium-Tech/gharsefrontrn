@@ -145,7 +145,7 @@ const CartScreen = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={{ position: 'absolute', right: - 50, height: 40, width: 40, backgroundColor: '#FFA41B', alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
+                    <TouchableOpacity style={{ position: 'absolute', right: - 100, height: 40, width: 40, backgroundColor: '#FFA41B', alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
                         <FontAwesome name="heart-o" size={24} color="#fff" />
                     </TouchableOpacity>
                 </Animated.View>
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     cardContainer: {
+        width: '100%',
         position: 'relative',
         flexDirection: 'row',
         backgroundColor: '#ffffff',
