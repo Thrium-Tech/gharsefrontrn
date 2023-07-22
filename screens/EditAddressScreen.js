@@ -52,7 +52,7 @@ const EditAddressScreen = ({ navigation }) => {
       };
       
       console.log(data);
-      
+      navigation.navigate('Home');
     //   let { error } = await supabase
     //     .from('your_table_name')
     //     .insert([data]);
@@ -120,14 +120,14 @@ const EditAddressScreen = ({ navigation }) => {
             <Text style={styles.label}>Apt / Suite / Floor</Text>
           </View>
           <View style={styles.inputContainer}>
-            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setAddress} />
+            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here"  onChangeText={setAddress} />
           </View>
 
           <View style={styles.labelRow}>
             <Text style={styles.label}>Business / Building Name</Text>
           </View>
           <View style={styles.inputContainer}>
-            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setBuildingName} />
+            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here"  onChangeText={setBuildingName} />
           </View>
 
           {/* Divider */}
@@ -153,7 +153,7 @@ const EditAddressScreen = ({ navigation }) => {
             <Text style={styles.label}>Add Instructions</Text>
           </View>
           <View style={styles.inputContainerDark}>
-            <TextInput placeholderTextColor={'rgba(0, 43, 91, 0.40)'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setInstructions} />
+            <TextInput placeholderTextColor={'rgba(0, 43, 91, 0.40)'} style={styles.input} placeholder="Type Something Here"  onChangeText={setInstructions} />
           </View>
         </View>
 

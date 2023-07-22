@@ -24,11 +24,13 @@ const ResturantMenuScreen = ({ navigation }) => {
     );
 
     const SecondRoute = () => (
-        <LunchDinnerMenu />
+        // <LunchDinnerMenu />
+        <BreakFastMenu />
     );
 
     const ThirdRoute = () => (
-        <OverNightMenu />
+        // <OverNightMenu />
+        <BreakFastMenu />
     )
 
     const routes = [

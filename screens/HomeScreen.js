@@ -9,12 +9,28 @@ import Snacks from './subScreens/Snacks';
 import Lunch from './subScreens/Lunch';
 import BottomNavbar from '../components/BottomNavbar';
 import AppHeader from '../components/AppHeader';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 const HomeScreen = ({ navigation }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [index, setIndex] = useState(0);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [selectedTime, setSelectedTime] = useState("Now");
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
 
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        // format the date as you want here:
+        const timeString = `${date.getHours()}:${date.getMinutes()}`;
+        setSelectedTime(timeString);
+        hideDatePicker();
+    };
 
     const FirstRoute = () => (
         <Meals />
@@ -63,9 +79,9 @@ const HomeScreen = ({ navigation }) => {
                                 value={searchQuery}
                             />
                         </View>
-                        <TouchableOpacity style={styles.searchTime}>
+                        <TouchableOpacity style={styles.searchTime} onPress={showDatePicker}>
                             <FontAwesome5 name="clock" size={22} color="#002B5B" />
-                            <Text style={styles.searchTimeText}>Now</Text>
+                            <Text style={styles.searchTimeText}>{selectedTime}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
