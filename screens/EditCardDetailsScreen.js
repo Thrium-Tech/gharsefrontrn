@@ -19,7 +19,7 @@ const EditCardDetailsScreen = () => {
 
         {/* Image View */}
         <View style={styles.imageContainer}>
-          <Image source={require('../assets/mapLocation.png')} style={styles.image} />
+          <Image source={require('../assets/CreditCard.jpg')} style={styles.image} />
           <View style={styles.buttomImage}>
             <Image source={require('../assets/visa.png')} style={styles.visaImage} />
           </View>
