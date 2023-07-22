@@ -14,7 +14,7 @@ import EditAddonScreen from './screens/EditAddonScreen';
 import CartScreen from './screens/CartScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
-import EditCardDetailsScreen from './screens/EditCardDetailsScreen';
+import EditCardDetailsScreen from './screens/EditCardDetailsScreen';r
 // Import other screen components as needed
 
 const Drawer = createDrawerNavigator();
