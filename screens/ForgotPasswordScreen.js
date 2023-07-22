@@ -166,11 +166,12 @@ const ForgotPasswordScreen = (props) => {
         console.log("OTP is called ....");
         setLoading(true);
         console.log(phone);
-        const { data, error } = await supabase.auth.resend({
+        const { data, error } = await supabase.auth.signInWithOtp({
             phone: phone,
-            token: otp,
-            type: 'sms'
         });
+        if(!error){
+            props.navigation.navigate('OTP', { phone: phone });
+        }
         if (error) {
             setLoading(false);
             alert(error.message);

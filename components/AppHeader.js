@@ -1,20 +1,49 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
-
+import * as Location from 'expo-location';
 
 const AppHeader = ({ navigation, screen }) => {
+    const [address, setAddress] = useState('Your location');
+
+    const fetchLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permission to access location was denied');
+          return;
+        }
+        
+        let location = await Location.getCurrentPositionAsync({});
+        console.log('location is requested by header',location);
+        let reverseGeocode = await Location.reverseGeocodeAsync(location.coords);
+        // console.log('reverseGeocode is requested by header',reverseGeocode);
+        // if (reverseGeocode && reverseGeocode.length > 0) {
+        //   let foundAddress = reverseGeocode.find(address => address.street && address.city);
+        //   if(foundAddress) {
+        //       setAddress(`${foundAddress.street}, ${foundAddress.city}`);
+        //   } else {
+        //       setAddress('Location not found');
+        //   }
+        // }
+        setAddress(`${reverseGeocode[0].name}, ${reverseGeocode[0].city}`);
+      };
+
+    useEffect(() => {
+        fetchLocation();
+    }, []);
+
     return (
         <View style={styles.headerContainer}>
             <TouchableOpacity style={{padding: 10, paddingLeft: 0}} onPress={() => navigation.openDrawer()}>
                 <AntDesign name="menuunfold" size={24} color="#002B5B" />
-            </TouchableOpacity>
-            {screen === undefined && <View style={styles.locationContainer} >
+            </TouchableOpacity> 
+            {screen === undefined && <TouchableOpacity onPress={fetchLocation} style={styles.locationContainer}>
                 <Octicons name="location" size={20} color="#002B5B" />
-                <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
-            </View>}
+                <Text style={styles.locationText}>{address}</Text>
+            </TouchableOpacity>}
+
             {screen == 'Favorites' && <View style={styles.locationContainer} >
                 <AntDesign name="hearto" size={20} color="#002B5B" />
                 <Text style={styles.locationText}>Your favorites</Text>

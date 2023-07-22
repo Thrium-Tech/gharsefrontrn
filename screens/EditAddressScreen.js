@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -6,11 +6,67 @@ import AppHeader from '../components/AppHeader';
 import { Divider } from 'react-native-elements';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
+import { add } from 'react-native-reanimated';
 
 const EditAddressScreen = ({ navigation }) => {
 
   const [location, setLocation] = useState({latitude: 40.798213, longitude: -84.0729929});
   const [selectedOption, setSelectedOption] = useState('')
+  const [markerPosition, setMarkerPosition] = useState(location);
+  // const [mapEditable, setMapEditable] = useState(true); 
+  const [address , setAddress] = useState('')
+  const [buildingName , setBuildingName] = useState('')
+  const [instructions , setInstructions] = useState('')
+
+  const getLocationAsync = async () => {
+    console.log('Location is requested')
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.error('Permission to access location was denied');
+      return;
+    }
+    
+    let location = await Location.getCurrentPositionAsync({});
+    console.log(location)
+    setLocation({latitude: location.coords.latitude, longitude: location.coords.longitude});
+    setMarkerPosition({latitude: location.coords.latitude, longitude: location.coords.longitude});
+  };
+
+  const handleMapPress = (e) => {
+    setMarkerPosition(e.nativeEvent.coordinate);
+    console.log('marked cordinates',markerPosition);
+  };
+
+  useEffect(() => {
+    getLocationAsync();
+  }, []);
+
+  const handleSaveAndUse = async () => {
+    // try {
+      const data = {
+        location: markerPosition,
+        address: address,
+        buildingName: buildingName,
+        selectedOption: selectedOption,
+        instructions: instructions,
+      };
+      
+      console.log(data);
+      
+    //   let { error } = await supabase
+    //     .from('your_table_name')
+    //     .insert([data]);
+  
+    //   // Error handling
+    //   if (error) {
+    //     console.log('Error submitting data: ', error);
+    //   } else {
+    //     console.log('Data submitted successfully!');
+    //   }
+    // } catch (error) {
+    //   console.log('Submission error: ', error);
+    // }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +79,7 @@ const EditAddressScreen = ({ navigation }) => {
 
         {/* Image View */}
         <View style={styles.imageContainer}>
-          <MapView
+          {/* <MapView
             style={styles.map}
             initialRegion={{
               latitude: location.latitude,
@@ -31,9 +87,19 @@ const EditAddressScreen = ({ navigation }) => {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
+          > */}
+          <MapView
+            style={styles.map}
+            region={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}
+            onPress={handleMapPress}
           >
             <Marker
-              coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+              coordinate={markerPosition}
               title="You are here"
               description="Your current location"
             >
@@ -42,9 +108,9 @@ const EditAddressScreen = ({ navigation }) => {
               </View>
             </Marker>
           </MapView>
-          <TouchableOpacity style={styles.buttomImage}>
+          <TouchableOpacity style={styles.buttomImage} onPress={getLocationAsync}>
             <MaterialIcons name="my-location" size={20} color="#002B5B" />
-            <Text style={styles.pinLocationText}>Pin Location</Text>
+            <Text style={styles.pinLocationText}>Find Location</Text>
           </TouchableOpacity>
         </View>
 
@@ -54,14 +120,14 @@ const EditAddressScreen = ({ navigation }) => {
             <Text style={styles.label}>Apt / Suite / Floor</Text>
           </View>
           <View style={styles.inputContainer}>
-            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" />
+            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setAddress} />
           </View>
 
           <View style={styles.labelRow}>
             <Text style={styles.label}>Business / Building Name</Text>
           </View>
           <View style={styles.inputContainer}>
-            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" />
+            <TextInput placeholderTextColor={'#B3BFCB'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setBuildingName} />
           </View>
 
           {/* Divider */}
@@ -87,12 +153,12 @@ const EditAddressScreen = ({ navigation }) => {
             <Text style={styles.label}>Add Instructions</Text>
           </View>
           <View style={styles.inputContainerDark}>
-            <TextInput placeholderTextColor={'rgba(0, 43, 91, 0.40)'} style={styles.input} placeholder="Type Something Here" />
+            <TextInput placeholderTextColor={'rgba(0, 43, 91, 0.40)'} style={styles.input} placeholder="Type Something Here" value={Text} onChangeText={setInstructions} />
           </View>
         </View>
 
         {/* Save and Use Button */}
-        <TouchableOpacity style={styles.saveButtonDark}>
+        <TouchableOpacity style={styles.saveButtonDark} onPress={handleSaveAndUse}>
           <Ionicons name="ios-checkmark-circle" size={24} color="white" style={styles.icon} />
           <Text style={styles.buttonText}>Save and Use</Text>
         </TouchableOpacity>
