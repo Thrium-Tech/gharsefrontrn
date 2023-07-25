@@ -7,6 +7,7 @@ import { Divider } from 'react-native-elements';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import { add } from 'react-native-reanimated';
+import { supabase } from '../initSupabase';
 
 const EditAddressScreen = ({ navigation }) => {
 
@@ -42,9 +43,12 @@ const EditAddressScreen = ({ navigation }) => {
   }, []);
 
   const handleSaveAndUse = async () => {
-    // try {
+    try {
       const data = {
-        location: markerPosition,
+        location:{
+          latitude: markerPosition.latitude,
+          longitude: markerPosition.longitude,
+        },
         address: address,
         buildingName: buildingName,
         selectedOption: selectedOption,
@@ -53,20 +57,22 @@ const EditAddressScreen = ({ navigation }) => {
       
       console.log(data);
       navigation.navigate('Home');
-    //   let { error } = await supabase
-    //     .from('your_table_name')
-    //     .insert([data]);
+
+      let { error } = await supabase
+        .from('userDetails')
+        .insert([data]);
   
-    //   // Error handling
-    //   if (error) {
-    //     console.log('Error submitting data: ', error);
-    //   } else {
-    //     console.log('Data submitted successfully!');
-    //   }
-    // } catch (error) {
-    //   console.log('Submission error: ', error);
-    // }
+      // Error handling
+      if (error) {
+        console.log('Error submitting data: ', error);
+      } else {
+        console.log('Data submitted successfully!');
+      }
+    } catch (error) {
+      console.log('Submission error: ', error);
+    }
   };
+  
 
   return (
     <View style={styles.container}>
