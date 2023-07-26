@@ -3,10 +3,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const ResturantItemComponent = ({style}) => {
+
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity style={[styles.cardContainer, style]}>
+        <TouchableOpacity onPress={() => navigation.navigate('Resturant menu')} style={[styles.cardContainer, style]}>
             <View style={styles.upperPart}>
                 <Image style={styles.logo} source={require('../assets/mcdonalds.png')} />
                 <View style={styles.textContainer}>

@@ -41,7 +41,7 @@ const DrawerComponent = (props) => {
                                     <MaterialCommunityIcons name="cart-arrow-down" size={26} color="#FAFAFA" />
                                 </View>
                             )}
-                            onPress={() => {
+                            onPress={() => { navigation.navigate('Orders')
                             }}
 
                         />

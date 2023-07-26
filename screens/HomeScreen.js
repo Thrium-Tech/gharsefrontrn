@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ScrollView, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Meals from './subScreens/Meals';
 import Breakfast from './subScreens/Breakfast';
 import Snacks from './subScreens/Snacks';
@@ -14,6 +15,30 @@ const HomeScreen = ({ navigation }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [index, setIndex] = useState(0);
+    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [formattedTime, setFormattedTime] = useState();
+
+    const showTimePicker = () => {
+        setTimePickerVisibility(true);
+    };
+
+    const hideTimePicker = () => {
+        setTimePickerVisibility(false);
+    };
+
+    const handleTimeConfirm = (time) => {
+        setSelectedTime(time);
+        hideTimePicker();
+    };
+
+    useEffect(() => {
+        if (selectedTime) {
+            const newDate = selectedTime.toTimeString().slice(0, 5);
+            setFormattedTime(newDate);
+        }
+    }, [selectedTime])
+
 
 
     const FirstRoute = () => (
@@ -61,13 +86,25 @@ const HomeScreen = ({ navigation }) => {
                                 placeholder="Search"
                                 onChangeText={(text) => { setSearchQuery(text) }}
                                 value={searchQuery}
+                                onSubmitEditing={() => {
+                                    navigation.navigate("Search home")
+                                }}
                             />
                         </View>
-                        <TouchableOpacity style={styles.searchTime}>
+                        <TouchableOpacity style={styles.searchTime} onPress={() => showTimePicker()}>
                             <FontAwesome5 name="clock" size={22} color="#002B5B" />
-                            <Text style={styles.searchTimeText}>Now</Text>
+                            <Text style={styles.searchTimeText}>{formattedTime}</Text>
                         </TouchableOpacity>
                     </View>
+                    {isTimePickerVisible && (
+                        <DateTimePickerModal
+                            isVisible={isTimePickerVisible}
+                            mode="time"
+                            value={selectedTime}
+                            onConfirm={handleTimeConfirm}
+                            onCancel={() => hideTimePicker()}
+                        />
+                    )}
                 </View>
             </View>
             <View style={styles.subScreenPart}>

@@ -2,11 +2,14 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const ResturantWithPricesCard = ({itemName, actualPrice, discountedPrice}) => {
 
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity style={styles.cardContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Meal")} style={styles.cardContainer}>
             <View style={styles.upperPart}>
                 <Image style={styles.item} source={require('../assets/kfcBurger.png')} />
                 <View style={styles.textContainer}>

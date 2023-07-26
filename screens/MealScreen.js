@@ -358,7 +358,7 @@ const MealScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)} style={[styles.favouritesContainer, isFavorite && {backgroundColor: '#FCD5E2'} ]}>
                     <Ionicons name="heart" size={24} color={isFavorite ? '#F4739E' : '#B3BFCB'} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.addToBagContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate("Delivered page") } style={styles.addToBagContainer}>
                     <View style={{flexDirection: 'row', alignItems: 'center' }} >
                         <Entypo name="shopping-bag" size={18} color="#fff" />
                         <Text style={{color: '#fff', fontSize: 14, fontFamily: 'Manrope-Medium', marginLeft: 10,}}>Add to Bag</Text>
