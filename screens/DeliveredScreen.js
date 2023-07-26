@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 });
 
-const Delivered = ({ navigation }) => {
+const DeliveredScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       
@@ -42,4 +42,4 @@ const Delivered = ({ navigation }) => {
   );
 };
 
-export default Delivered;
+export default DeliveredScreen;

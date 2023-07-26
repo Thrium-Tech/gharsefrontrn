@@ -3,9 +3,13 @@ import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
-const AppHeader = ({ navigation, screen }) => {
+const AppHeader = ({ screen }) => {
+
+    const navigation = useNavigation();
+
     return (
         <View style={styles.headerContainer}>
             <TouchableOpacity style={{padding: 10, paddingLeft: 0}} onPress={() => navigation.openDrawer()}>
@@ -22,7 +26,7 @@ const AppHeader = ({ navigation, screen }) => {
             {screen == 'Profile' && <View style={styles.locationContainer} >
                 <Text style={styles.locationText}>Profile</Text>
             </View>}
-            <TouchableOpacity style={{padding: 10, paddingLeft: 0}}  >
+            <TouchableOpacity onPress={() => navigation.navigate('Cart') } style={{padding: 10, paddingLeft: 0}}  >
                 <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
             </TouchableOpacity>
         </View>

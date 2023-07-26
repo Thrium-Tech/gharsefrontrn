@@ -11,10 +11,10 @@ const ProfileScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <AppHeader navigation={navigation} screen={'Profile'} />
+      <AppHeader screen={'Profile'} />
       <View style={styles.rowContainer}>
         <Text style={styles.heading}>Personal details</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Edit Details') } >
           <Text style={styles.editText}>Edit details</Text>
         </TouchableOpacity>
       </View>
@@ -39,7 +39,7 @@ const ProfileScreen = ({navigation}) => {
       <View style={{ flex: 1, }}>
         <ScrollView contentContainerStyle={{paddingBottom: 85}} >
           <View style={styles.cardButton}>
-            <TouchableOpacity style={styles.buttonsContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate('Edit Address') } style={styles.buttonsContainer}>
               <Text style={styles.buttonText}>Address</Text>
               <MaterialIcons name="keyboard-arrow-right" size={30} color="black" />
             </TouchableOpacity>
