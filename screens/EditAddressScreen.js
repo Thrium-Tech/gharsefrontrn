@@ -15,7 +15,7 @@ const EditAddressScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Edit Card Details Heading */}
-      <AppHeader navigation={navigation} />
+      <AppHeader isMainScreen={false} />
 
       <View style={styles.contentContainer}>
 

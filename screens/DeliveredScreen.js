@@ -8,20 +8,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    color:'#002B5B',
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign:'center'
-   
+    color: '#002B5B',
+    fontFamily: 'Manrope-Bold',
+    fontSize: 26,
+    marginVertical: 10,
+    textAlign: 'center'
+
   },
   smallTextView: {
-    alignItems:'center'
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: 20
   },
   smallText: {
-    color:'#292D32',
-    fontSize: 14,
-    marginBottom: 20
+    color: '#292D32',
+    fontSize: 13,
+    fontFamily: "Manrope-Regular",
   }
 
 });
@@ -29,15 +31,15 @@ const styles = StyleSheet.create({
 const DeliveredScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      
-      <AppHeader   navigation={navigation} />
+
+      <AppHeader isMainScreen={false} navigation={navigation} />
       <Text style={styles.heading}> {'Your Favourite Food,\nDelivered Fast'} </Text>
-     <View style={styles.smallTextView}><Text style={styles.smallText}>Thank you for ordering with Us</Text></View> 
+      <View style={styles.smallTextView}><Text style={styles.smallText}>Thank you for ordering with us.</Text></View>
       <Image
-        source={require('../assets/DeliveryRider.png')} // Replace with your image source
-        
+        source={require('../assets/DeliveryRider.png')}
+
       />
-       <BottomNavbar />
+      <BottomNavbar />
     </View>
   );
 };

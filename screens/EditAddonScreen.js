@@ -29,7 +29,7 @@ const EditAddonScreen = ({ navigation }) => {
     return (
         <View style={styles.container} >
 
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={false} />
 
             <View style={styles.itemContainer} >
                 <View style={styles.itemHeadingContainer}>

@@ -17,7 +17,7 @@ const SearchHomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container} >
 
-      <AppHeader navigation={navigation} />
+      <AppHeader isMainScreen={true} />
 
       <View style={styles.topPart}>
         <View style={styles.headingContainer}>

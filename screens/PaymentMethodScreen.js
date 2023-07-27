@@ -29,7 +29,7 @@ const PaymentMethodScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AppHeader screen={'Profile'} navigation={navigation} />
+      <AppHeader screen={'Profile'} isMainScreen={true} />
       <View style={styles.rowContainer}>
         <Text style={styles.heading}>Payment Methods</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Edit Card Details') } >

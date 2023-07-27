@@ -46,7 +46,7 @@ const ResturantMenuScreen = ({ navigation }) => {
     return (
         <View style={styles.container} >
 
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={false} />
 
             <View style={styles.upperPart}>
                 <Image style={styles.logo} source={require('../assets/mcdonalds.png')} />

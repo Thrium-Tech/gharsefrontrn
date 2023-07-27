@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Animated, ActivityIndicator, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
@@ -10,6 +10,8 @@ const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [phone, setPhone] = useState("919381969169");
     const [password, setPassword] = useState("test@123");
+    const [hidePass, setHidePass] = useState(null);
+    const [hideConfirmPass, setHideConfirmPass] = useState(null);
     const [confimPassword, setConfimPassword] = useState("");
 
     const [isLogin, setIsLogin] = useState(true);
@@ -89,18 +91,16 @@ const LoginScreen = ({ navigation }) => {
         },
         rectangleBackground: {
             height: '100%',
-            flex: 1,
+            resizeMode: 'repeat',
+            width: '100%',
+            position: 'absolute',
+            transform: [{ rotate: '-4deg' }]
         },
         rectangle: {
-            height: '40%',
+            overflow: 'hidden',
+            height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(255, 255, 255, 1)',
-            shadowColor: 'rgba(0, 0, 0, 1)',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 1,
-            shadowRadius: 14,
-            elevation: 4,
-            borderRadius: 30,
+            backgroundColor: 'rgba(255, 255, 255, .9)',
             alignItems: 'center',
             justifyContent: 'center',
         },
@@ -253,27 +253,34 @@ const LoginScreen = ({ navigation }) => {
                 resizeMode="repeat"
                 style={styles.rectangleBackground}
             > */}
-            <View style={styles.rectangle}>
-                <View style={styles.ellipse}>
-                    <Image style={styles.logo} source={require('../assets/logo.png')} />
-                </View>
-                <View style={styles.ovalContainer}>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={handleToggle}
-                        style={styles.toggleButton}
-                    >
-                        <Animated.View
-                            style={[styles.toggleIndicator, { left: leftPosition }]}
-                        />
-                        <View style={styles.labelContainer}>
-                            <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
-                            <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
-                        </View>
-                    </TouchableOpacity>
+            <View style={{ width: '100%', height: '40%', position: 'relative', overflow: 'hidden', borderRadius: 30, shadowColor: 'rgba(0, 0, 0, .5)', shadowOffset: { width: 0, height: 4 }, shadowOpacity: .5, shadowRadius: 4, elevation: 4}} >
+                <Image
+                    source={require('../assets/india.png')}
+                    style={styles.rectangleBackground}
+                // res
+                />
+                <View style={styles.rectangle}>
+                    <View style={styles.ellipse}>
+                        <Image style={styles.logo} source={require('../assets/logo.png')} />
+                    </View>
+                    <View style={styles.ovalContainer}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={handleToggle}
+                            style={styles.toggleButton}
+                        >
+                            <Animated.View
+                                style={[styles.toggleIndicator, { left: leftPosition }]}
+                            />
+                            <View style={styles.labelContainer}>
+                                <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
+                                <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-            {/* </ImageBackground> */}
+            {/* </Image> */}
             {isLogin && <View style={styles.outterPart}>
                 <View style={styles.headerPart}>
                     <Text style={[{ fontFamily: 'Manrope-Medium' }, styles.Heading]}>Welcome Back!</Text>
@@ -289,10 +296,18 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.SubHead}>Password</Text>
                     <TextInput
                         textContentType='password'
+                        secureTextEntry={true}
                         value={password}
                         placeholder={"Enter your password"}
                         onChangeText={(text) => setPassword(text)}
-                        style={styles.textInput} />
+                        style={styles.textInput}
+                        // right={
+                        //     <TextInput.Icon
+                        //         name="eye"
+                        //         onPress={() => setHidePass(!hidePass)}
+                        //     />
+                        // }
+                    />
                 </View>
                 <View style={styles.forgetPasswordView}>
                     <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
@@ -327,10 +342,12 @@ const LoginScreen = ({ navigation }) => {
                     <TextInput
                         placeholder={"Enter your password"}
                         onChangeText={(text) => setPassword(text)}
+                        secureTextEntry={true}
                         style={styles.textInput} />
                     <Text style={styles.SubHead}>Confirm Password</Text>
                     <TextInput
                         placeholder={"Enter your password"}
+                        secureTextEntry={true}
                         onChangeText={(text) => setConfimPassword(text)}
                         style={styles.textInput} />
                 </View>

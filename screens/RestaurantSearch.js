@@ -10,7 +10,7 @@ const RestaurantSearch = ({ navigation }) => {
 
   return (
     <View style={[styles.container]}>
-      <AppHeader navigation={navigation} />
+      <AppHeader isMainScreen={false} />
       <View style={[styles.headingContainer]}>
         <Text style={styles.heading}> Search McDonald's</Text>
         <View style={styles.headingcontentrow}>
