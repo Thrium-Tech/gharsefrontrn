@@ -67,7 +67,7 @@ const MealScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container} >
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={false} />
             <View style={styles.upperPart}>
                 <View style={styles.imageFoodContainer}>
                     <Image style={styles.foodImage} source={require('../assets/burgerFriesJuice.png')} />

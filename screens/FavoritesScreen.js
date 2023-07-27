@@ -16,7 +16,7 @@ const FavoritesScreen = ({ navigation }) => {
     return (
         <View style={styles.container} >
 
-            <AppHeader screen={'Favorites'} navigation={navigation} />
+            <AppHeader screen={'Favorites'} isMainScreen={true} />
 
             <View style={styles.subScreen}>
                 <>

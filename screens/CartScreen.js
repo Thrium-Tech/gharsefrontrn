@@ -47,7 +47,7 @@ const CartScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container} >
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={false} />
             <View style={styles.swipeContainer}>
                 <MaterialIcons name="swipe" size={18} color="black" />
                 <Text style={styles.swipeText} >swipe on an item to delete</Text>

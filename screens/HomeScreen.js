@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={true} />
             <View style={styles.topPart}>
                 <Text style={styles.heading}>Good afternoon, Hemant</Text>
                 <View style={styles.searchContainer}>

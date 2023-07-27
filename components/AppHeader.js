@@ -4,32 +4,54 @@ import { AntDesign } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons';
 
-
-const AppHeader = ({ screen }) => {
+const AppHeader = ({ screen, isMainScreen }) => {
 
     const navigation = useNavigation();
 
     return (
-        <View style={styles.headerContainer}>
-            <TouchableOpacity style={{padding: 10, paddingLeft: 0}} onPress={() => navigation.openDrawer()}>
-                <AntDesign name="menuunfold" size={24} color="#002B5B" />
-            </TouchableOpacity>
-            {screen === undefined && <View style={styles.locationContainer} >
-                <Octicons name="location" size={20} color="#002B5B" />
-                <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
+        <>
+            {isMainScreen && <View style={styles.headerContainer}>
+                <TouchableOpacity style={{ padding: 10, paddingLeft: 0 }} onPress={() => navigation.openDrawer()}>
+                    <AntDesign name="menuunfold" size={24} color="#002B5B" />
+                </TouchableOpacity>
+                {screen === undefined && <View style={styles.locationContainer} >
+                    <Octicons name="location" size={20} color="#002B5B" />
+                    <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
+                </View>}
+                {screen == 'Favorites' && <View style={styles.locationContainer} >
+                    <AntDesign name="hearto" size={20} color="#002B5B" />
+                    <Text style={styles.locationText}>Your favorites</Text>
+                </View>}
+                {screen == 'Profile' && <View style={styles.locationContainer} >
+                    <Text style={styles.locationText}>Profile</Text>
+                </View>}
+                <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ padding: 10, paddingLeft: 0 }}  >
+                    <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
+                </TouchableOpacity>
             </View>}
-            {screen == 'Favorites' && <View style={styles.locationContainer} >
-                <AntDesign name="hearto" size={20} color="#002B5B" />
-                <Text style={styles.locationText}>Your favorites</Text>
+            {!isMainScreen && <View style={styles.headerContainer}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.goBack()}>
+                    <MaterialIcons name="keyboard-backspace" size={20} color="#292D32" />
+                    <Text style={{ fontFamily: 'Manrope-Medium', fontSize: 12, color: '#292D32' }} >Back</Text>
+                </TouchableOpacity>
+                {screen === undefined && <View style={styles.locationContainer} >
+                    <Octicons name="location" size={20} color="#002B5B" />
+                    <Text style={styles.locationText}>Rd.no 2,Begumpet</Text>
+                </View>}
+                {screen == 'Favorites' && <View style={styles.locationContainer} >
+                    <AntDesign name="hearto" size={20} color="#002B5B" />
+                    <Text style={styles.locationText}>Your favorites</Text>
+                </View>}
+                {screen == 'Profile' && <View style={styles.locationContainer} >
+                    <Text style={styles.locationText}>Profile</Text>
+                </View>}
+                <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ padding: 10, paddingLeft: 0 }}  >
+                    <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
+                </TouchableOpacity>
             </View>}
-            {screen == 'Profile' && <View style={styles.locationContainer} >
-                <Text style={styles.locationText}>Profile</Text>
-            </View>}
-            <TouchableOpacity onPress={() => navigation.navigate('Cart') } style={{padding: 10, paddingLeft: 0}}  >
-                <SimpleLineIcons name="handbag" size={24} color="#002B5B" />
-            </TouchableOpacity>
-        </View>
+        </>
 
     )
 }

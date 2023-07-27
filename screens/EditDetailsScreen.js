@@ -48,7 +48,7 @@ const EditDetailsScreen = () => {
   return (
     <View style={styles.container}>
       {/* Edit Card Details Heading */}
-      <AppHeader />
+      <AppHeader isMainScreen={false} />
 
       <View style={styles.contentContainer}>
 

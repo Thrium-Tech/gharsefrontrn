@@ -69,18 +69,16 @@ const ForgotPasswordScreen = (props) => {
         },
         rectangleBackground: {
             height: '100%',
-            flex: 1,
+            resizeMode: 'repeat',
+            width: '100%',
+            position: 'absolute',
+            transform: [{ rotate: '-4deg' }]
         },
         rectangle: {
-            height: '40%',
+            overflow: 'hidden',
+            height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(255, 255, 255, 1)',
-            shadowColor: 'rgba(0, 0, 0, 1)',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 1,
-            shadowRadius: 14,
-            elevation: 4,
-            borderRadius: 30,
+            backgroundColor: 'rgba(255, 255, 255, .9)',
             alignItems: 'center',
             justifyContent: 'center',
         },
@@ -188,11 +186,33 @@ const ForgotPasswordScreen = (props) => {
                 resizeMode="repeat"
                 style={styles.rectangleBackground}
             > */}
+            <View style={{ width: '100%', height: '40%', position: 'relative', overflow: 'hidden', borderRadius: 30, shadowColor: 'rgba(0, 0, 0, .5)', shadowOffset: { width: 0, height: 4 }, shadowOpacity: .5, shadowRadius: 4, elevation: 4}} >
+                <Image
+                    source={require('../assets/india.png')}
+                    style={styles.rectangleBackground}
+                // res
+                />
                 <View style={styles.rectangle}>
                     <View style={styles.ellipse}>
                         <Image style={styles.logo} source={require('../assets/logo.png')} />
                     </View>
+                    {/* <View style={styles.ovalContainer}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={handleToggle}
+                            style={styles.toggleButton}
+                        >
+                            <Animated.View
+                                style={[styles.toggleIndicator, { left: leftPosition }]}
+                            />
+                            <View style={styles.labelContainer}>
+                                <Text style={[styles.labelToggle, isLogin && styles.activeLabel]}>Login</Text>
+                                <Text style={[styles.labelToggle, !isLogin && styles.activeLabel]}>Signup</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View> */}
                 </View>
+            </View>
             {/* </ImageBackground> */}
             <View style={styles.outterPart}>
                 <View style={styles.headerPart}>

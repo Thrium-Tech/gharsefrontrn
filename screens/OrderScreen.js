@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
 import AppHeader from '../components/AppHeader';
 import { FontAwesome5 } from '@expo/vector-icons';
+import BottomNavbar from '../components/BottomNavbar';
 
 const OrderScreen = ({ navigation }) => {
     const [showPastOrders, setShowPastOrders] = useState(false);
@@ -57,7 +58,7 @@ const OrderScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <AppHeader navigation={navigation} />
+            <AppHeader isMainScreen={true} />
             {/* <View style={styles.toggleContainer}>
         <TouchableOpacity
           style={[
@@ -126,6 +127,7 @@ const OrderScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+            <BottomNavbar screen={'Orders'} />
         </View>
     );
 };

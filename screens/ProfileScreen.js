@@ -11,7 +11,7 @@ const ProfileScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <AppHeader screen={'Profile'} />
+      <AppHeader screen={'Profile'} isMainScreen={true} />
       <View style={styles.rowContainer}>
         <Text style={styles.heading}>Personal details</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Edit Details') } >

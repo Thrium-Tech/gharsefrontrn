@@ -53,7 +53,7 @@ const LiveTrackingScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <AppHeader navigation={navigation} />
+      <AppHeader isMainScreen={true} />
       <View style={styles.mapView} >
         <MapView
           style={styles.map}
